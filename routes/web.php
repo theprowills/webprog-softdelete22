@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\loginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,63 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/aboutUs', function () {
+    return view('aboutUs', ['title' => 'About Us',
+                            'active' => 4,
+                            'role' => 'guess']
+                );
+});
+
+
+Route::get('/login', function () {
+    return view('login', ['title' => 'Login',
+                          'active' => 4,
+                          'role' => 'guess']
+                );
+});
+
+Route::get('/register', function () {
+    return view('register', ['title' => 'Register',
+                          'active' => 4,
+                          'role' => 'guess']
+                );
+});
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('home', ['title' => 'Home',
+                          'role' => 'admin']    
+                );
+});
+// Route::get('/login', [loginController::class, 'login']);
+
+Route::get('/product', function () {
+    return view('product', ['title' => 'Product',
+                            'role' => 'admin']    
+                );
+});
+
+Route::get('/addProduct', function () {
+    return view('addProduct', ['title' => 'Add Product',
+                               'role' => 'admin']    
+                );
+});
+
+Route::get('/myCart', function () {
+    return view('myCart', ['title' => 'Add Product',
+                           'role' => 'admin',
+                           'cart' => 1]    
+                );
+});
+
+Route::get('/transaction', function () {
+    return view('transaction', ['title' => 'View Transaction',
+                           'role' => 'admin',
+                           'cart' => 1]    
+                );
+});
+Route::get('/viewAcc', function () {
+    return view('viewAcc', ['title' => 'View Account',
+                           'role' => 'admin',
+                           'cart' => 1]    
+                );
 });

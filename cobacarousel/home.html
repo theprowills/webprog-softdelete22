@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        .block{
+            width: 600px;
+            height: 600px;
+            background-color: brown;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="block">Block</div>
+    <button id="btn">Click Me</button>
+    <button id="btn2">Click Me 2</button>
+
+</body>
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+    $(function(){
+        var block = $(".block")
+        var btn = $("#btn")
+        var btn2 = $("#btn2")
+
+        btn.hover(()=>{
+            block.css({
+                backgroundColor: "#ffe"
+            })
+        })
+        btn.on("click", ()=>{
+            block.hide(2000)
+        })
+        btn2.on("click", ()=>{
+            block.hide(2000)
+        })
+    })
+</script>
+</html>

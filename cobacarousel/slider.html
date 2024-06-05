@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider</title>
+    <style>
+      .slider{
+        overflow: hidden;
+        width: 500px;
+        height: 250px;
+        display: flex;
+        align-items: center;
+      }
+      .image-container{
+        display: flex;
+        width: 1200px;
+      }
+
+      .image-container img{
+        /* akses seluruh image di dalam image container */
+        /* width: 500px; */
+        height: auto;
+        max-height: 100%;
+
+        width: auto;
+        max-width: 100%;
+      }
+      .image-container{
+        
+      }
+
+      #img1{
+        height: auto;
+      }
+      .contain{
+        height: 70vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .fill {
+          background-size: cover;
+          background-position: center;
+          width: 100%;
+          height: 100%;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="contain">
+      <div class="slider">
+        <div class="image-container">
+          <img src="..\resources\assets\homeguest.jpg" alt="" />
+          <img src="assets/2.jpg" alt="" />
+          <img src="assets/3.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    <button id="left">left</button>
+    <button id="right">right</button>
+  </body>
+  <script src="jquery-3.6.0.min.js">
+  </script>
+  <script>
+    $(function(){
+      // di dalam sini kita bisa pakai function jquery
+      var container = $(".image-container")
+      var index = 1
+
+      $("#left").on("click", ()=>{
+        if (index > 1 ){
+          index--;
+          container.animate({
+            marginLeft: -400 * (index-1)
+          })
+        }
+        else{
+          index=3
+          container.animate({
+            marginLeft: -400 * 2
+          })
+        }
+      })
+
+      $('#right').on("click", ()=>{
+        if (index < 3){
+          index++;
+          container.animate({
+            marginLeft: -400 * (index-1)
+          })
+        } 
+        else{
+          index=1
+          container.animate({
+            marginLeft: 0
+          })
+        }
+      })
+
+      const interval = setInterval(function() {
+        if (index < 3){
+          index++;
+          container.animate({
+            marginLeft: -400 * (index-1)
+          })
+        } 
+        else{
+          index=1
+          container.animate({
+            marginLeft: 0
+          })
+        }
+      }, 3000);
+    })
+  </script>
+</html>
+
+

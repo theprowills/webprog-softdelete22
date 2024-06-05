@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+	
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Hanamasa{% if judul %} - {{ judul }}{% endif %}</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    
+    {% block header %}{% endblock %}
+
+</head>
+
+
+
+<body class="index-page sidebar-collapse">
+    <!-- Navbar -->
+    {%- if judul == 'Home' %}
+    <nav id="top_navbar" class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
+    {%- else %}
+    <nav id="top_navbar" class="navbar navbar-expand-lg bg-primary fixed-top">
+    {%- endif %}
+        <div class="container">
+            <div class="navbar-translate">
+                {%- if judul != 'Home' %}
+                <a class="navbar-brand" href="{{ url_for('views.index') }}">
+                    <img class="img-fluid" src="{{ url_for('static', filename='img/logo.png') }}" />
+                </a>
+                {%- endif %}
+                <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar top-bar"></span>
+                    <span class="navbar-toggler-bar middle-bar"></span>
+                    <span class="navbar-toggler-bar bottom-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {%- if judul == 'Home' %} active {%- endif %}" href="{{ url_for('views.index') }}">
+                            <p>Home</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {%- if judul == 'Menu' %} active {%- endif %}" href="{{ url_for('views.menu') }}">
+                            <p>Menu</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {%- if judul == 'Outlets' %} active {%- endif %}" href="{{ url_for('views.outlets') }}">
+                            <p>Outlets</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {%- if judul == 'Promo' %} active {% endif %}" href="{{ url_for('views.promo') }}">
+                            <p>Promo</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {%- if judul == 'About' %} active {%- endif %}" href="{{ url_for('views.about') }}">
+                            <p>About</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if judul == 'Reservation' %} active {%- endif %}" href="javascript:reservationAuth();">
+                            <p>Reservation</p>
+                        </a>
+                    </li>
+                    {%- if judul == 'Reservation' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">
+                            <p>Sign Out</p>
+                        </a>
+                    </li>
+                    {%- endif %}
+                </ul>
+            </div>
+            <div class="slide-line d-lg-block d-none"></div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    
+    {% if judul != 'Home' -%}
+    <div class="wrapper navbar-padding">
+    {%- else %}
+    <div class="wrapper">
+    {%- endif %}
+        {% block content %}{% endblock %}
+        <!-- Footer -->
+        <div class="section" data-background-color="black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>
+                            <a href="{{ url_for('views.index') }}">
+                                <img class="img-fluid" src="{{ url_for('static', filename='img/logo.png') }} " />
+                            </a>
+                        </p>
+                        <p style="margin-left:-15px;">
+                            <a class="btn btn-link btn-neutral" href="{{ url_for('views.menu') }}">Menu</a>
+                            <a class="btn btn-link btn-neutral" href="{{ url_for('views.outlets') }}">Outlets</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="header-underline underline-white margin-top-0 text-uppercase">Follow Us</h4>
+                        <p>
+                            <a href="https://www.facebook.com/hanamasaresto/" target="_blank" class="btn btn-dark btn-default-padding">
+                                <i class="fab fa-facebook-square"></i>
+                            </a>
+                            <a href="https://www.instagram.com/hanamasa_id/?hl=id" target="_blank" class="btn btn-dark btn-default-padding">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer" data-background-color="white">
+            <div class="container">
+                <div class="copyright" id="copyright">
+                    &copy;
+                    <script>
+                        document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+                    </script> HANAMASA . All rights reserved.
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+    </div>
+    
+    <!-- Modal -->
+    {%- block modal %}
+    {% endblock %}
+    <div class="modal fade thankyou-modal modal-medium modal-primary" id="thankyou-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rectangle">
+                <div class="modal-body padding-0">
+                    <div class="row margin-0">
+                        <div class="col-12 margin-top-40 margin-bottom-40 text-center">
+                            <button type="button" class="close close-btn-top" data-dismiss="modal" aria-hidden="true">
+                                <i class="now-ui-icons ui-1_simple-remove"></i>
+                            </button>
+                            <img class="img-fluid" src="{{ url_for('static', filename='img/logo.png') }}" />
+                            <p class="h3 text-uppercase margin-top-40">Thank You</p>
+                            <p>
+                                Terima kasih telah menghubungi kami.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade reservation-modal modal-medium" id="reservation-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rectangle">
+                <div class="modal-body padding-0">
+                    <div class="row margin-0" data-background-color="red">
+                        <div class="col-12 margin-top-20 margin-bottom-20 padding-left-40">
+                            <button type="button" class="close close-btn-top margin-top-20" data-dismiss="modal"
+                                aria-hidden="true">
+                                <i class="now-ui-icons ui-1_simple-remove"></i>
+                            </button>
+                            <img class="img-fluid" src="{{ url_for('static', filename='img/logo.png') }}" />
+                        </div>
+                    </div>
+                    <div class="row margin-0" data-background-color="grey-motive">
+                        <div class="col-12 margin-bottom-20 padding-left-40 padding-right-40">
+                            <h4 class="header-underline text-uppercase margin-bottom-40">Login For Reservation</h4>
+                            <p>
+                                <form method="POST" action="{{ url_for('auth.google_login') }}">
+                                    <button id="google-login" class="btn btn-primary rectangle text-uppercase btn-block">
+                                        Login with Google
+                                    </button>
+                                </form>
+                            </p>
+                            <p class="text-center">
+                                or login with Hanamasa Motive Apps
+                            </p>
+                            <form id="login-form" method="POST" action="{{ url_for('auth.normal_login') }}">
+                                <div class="form-group">
+                                    <!-- <input type="text" id="new-email" name="email" class="form-control form-hanamasa" placeholder="Email" /> -->
+                                    <input type="text" name="email" class="form-control form-hanamasa" placeholder="Email" />
+                                </div>
+                                <div class="form-group">
+                                    <!-- <input type="password" id="new-password" name="password" class="form-control form-hanamasa" placeholder="Password" /> -->
+                                    <input type="password" name="password" class="form-control form-hanamasa" placeholder="Password" />
+                                </div>
+                                <div class="form-group text-center">
+                                    <button id="normal-login" type="submit" class="btn btn-dark rectangle text-uppercase">
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
+                            <p class="text-center">
+                                Don't have Hanamasa Account? 
+                                <a href="javascript:createHanamasaAccount();">Create Account</a>
+                            </p>                            
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- sign up -->
+    <div class="modal fade reservation-modal modal-medium" id="signup-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rectangle">
+                <div class="modal-body padding-0">
+                    <div class="row margin-0" data-background-color="red">
+                        <div class="col-12 margin-top-20 margin-bottom-20 padding-left-40">
+                            <button type="button" class="close close-btn-top margin-top-20" data-dismiss="modal"
+                                aria-hidden="true">
+                                <i class="now-ui-icons ui-1_simple-remove"></i>
+                            </button>
+                            <img class="img-fluid" src="{{ url_for('static', filename='img/logo.png') }}" />
+                        </div>
+                    </div>
+                    <div class="row margin-0" data-background-color="grey-motive">
+                        <div class="col-12 margin-bottom-20 padding-left-40 padding-right-40">
+                            <h4 class="header-underline text-uppercase margin-bottom-40">Sign Up For Reservation</h4>
+                            <form id="signup-form" method="POST" action="{{ url_for('auth.sign_up') }}">
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" class="form-control form-hanamasa" placeholder="Enter your Email" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" class="form-control form-hanamasa" placeholder="Enter your Password" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password2">Password (Confirm)</label>
+                                    <input type="password" id="password2" name="password2" class="form-control form-hanamasa" placeholder="Confirm your password" />
+                                </div>
+                                <div class="form-group text-center">
+                                    <button id="signup" type="submit" class="btn btn-dark rectangle text-uppercase">
+                                        Sign Up
+                                    </button>
+                                </div>
+                            </form>
+                            <p class="text-center">
+                                Have Hanamasa Account? 
+                                <a href="javascript:haveHanamasaAccount();">Login</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-mini modal-success" id="success-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal  -->
+
+    <!--   Core JS Files   -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/popper.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}" type="text/javascript"></script>
+    <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
+    <script src="{{ url_for('static', filename='js/nowuikit.js') }}" type="text/javascript"></script>
+    
+    <script src="{{ url_for('static', filename='js/sweetalert.js') }}" type="text/javascript"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+    
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-database.js"></script>
+    <!--script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script-->
+    <!--script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-messaging.js"></script-->
+    <!--script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-functions.js"></script-->
+    
+    <!-- Custom Firebase method script -->
+    <!--script src="https://www.hanamasaresto.com/js/firebase_handler.js" type="text/javascript"></script-->
+    {% block script %}{% endblock %}
+</body>
+
+</html>
