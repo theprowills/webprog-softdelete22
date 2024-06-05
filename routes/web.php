@@ -1,88 +1,38 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\loginController;
-
+use App\Models\Listing;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
-Route::get('/aboutUs', function () {
-    return view('aboutUs', ['title' => 'About Us',
-                            'active' => 4,
-                            'role' => 'guess']
-                );
-});
-
-
-Route::get('/login', function () {
-    return view('login', ['title' => 'Login',
-                          'active' => 4,
-                          'role' => 'guess']
-                );
-});
-
-// Route::post('/login', [loginController::class, 'verifUser']);
-
-
-Route::post('/login', function(){
-    dd($request);
-});
-
-Route::get('/register', function () {
-    return view('register', ['title' => 'Register',
-                          'active' => 4,
-                          'role' => 'guess']
-                );
-});
-
+// All Listings
 Route::get('/', function () {
-
-    return view('home', ['title' => 'Home',
-                          'role' => 'admin']    
-                );
-});
-// Route::get('/login', [loginController::class, 'login']);
-
-Route::get('/product', function () {
-    return view('product', ['title' => 'Product',
-                            'role' => 'admin',
-                            'deskripsi' => 'ini adalah pulpen']    
-                );
+    return view('listings', [
+        'heading' => 'Latest Listings',
+        'listings' => Listing::all()
+    ]);
 });
 
-Route::get('/addProduct', function () {
-    return view('addProduct', ['title' => 'Add Product',
-                               'role' => 'admin']    
-                );
+// Single Listing
+Route::get('/listings/{id}', function($id){
+    return view('listing', [
+        'listing' => Listing::find($id)
+    ]);
 });
 
-Route::get('/myCart', function () {
-    return view('myCart', ['title' => 'Add Product',
-                           'role' => 'admin',
-                           'cart' => 1]    
-                );
-});
+// Route::get('/posts/{id}', function($id){
+//     return response('Post ' . $id);
+// })->where('id', '[0-9]+');
 
-Route::get('/transaction', function () {
-    return view('transaction', ['title' => 'View Transaction',
-                           'role' => 'admin',
-                           'cart' => 1]    
-                );
-});
-
-Route::get('/viewAcc', function () {
-    return view('viewAcc', ['title' => 'View Account',
-                           'role' => 'admin',
-                           'cart' => 1]    
-                );
-});
-
-Route::get('/test', [loginController::class, 'index']);
+// Route::get('/search', function(Request $request){
+//     dd($request->name . ' ' . $request->city);
+// });
