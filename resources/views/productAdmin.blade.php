@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <h5 class="card-title">sarasa</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Rp. 22000</h6>
-                            <p class="card-text">sarasa pen 0.5</p>
+                            <p class="card-text">{{ $deskripsi }}</p>
                             @if($role == 'admin')
                                 <a href="#" class="btn btn-primary">Update</a>
                                 <a href="#" class="btn btn-danger">Delete</a>

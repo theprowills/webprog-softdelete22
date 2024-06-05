@@ -52,7 +52,8 @@
       
                       <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
       
-                      <form class="mx-1 mx-md-4">
+                      <form class="mx-1 mx-md-4" method="post" action="{{ url('/login') }}">
+                        @csrf
                         <div class="d-block mb-4">
                           <label for="email">Your Email</label>
                           <input type="text" class="form-control" id="email">

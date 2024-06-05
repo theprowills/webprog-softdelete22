@@ -12,6 +12,10 @@ class loginController extends Controller
         return view('login');
     }
 
+
+    function verifUser(Request $request){
+        dd($request);
+    }
     // public function store(Request $request)
     // {
     //     $post = new Post;

@@ -93,7 +93,7 @@
 @elseif($role == 'customer')
     <nav class="navbar navbar-expand-lg bg-light" style="font-size: 15px">
       <div class="container-fluid">
-        <a class="navbar-brand text-info" href="{{ url('/') }}">JRamedia Customer</a>
+        <a class="navbar-brand text-info" href="{{ route('test') }}">JRamedia Customer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

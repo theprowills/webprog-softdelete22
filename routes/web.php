@@ -29,6 +29,13 @@ Route::get('/login', function () {
                 );
 });
 
+// Route::post('/login', [loginController::class, 'verifUser']);
+
+
+Route::post('/login', function(){
+    dd($request);
+});
+
 Route::get('/register', function () {
     return view('register', ['title' => 'Register',
                           'active' => 4,
@@ -37,6 +44,7 @@ Route::get('/register', function () {
 });
 
 Route::get('/', function () {
+
     return view('home', ['title' => 'Home',
                           'role' => 'admin']    
                 );
@@ -45,7 +53,8 @@ Route::get('/', function () {
 
 Route::get('/product', function () {
     return view('product', ['title' => 'Product',
-                            'role' => 'admin']    
+                            'role' => 'admin',
+                            'deskripsi' => 'ini adalah pulpen']    
                 );
 });
 
@@ -68,9 +77,12 @@ Route::get('/transaction', function () {
                            'cart' => 1]    
                 );
 });
+
 Route::get('/viewAcc', function () {
     return view('viewAcc', ['title' => 'View Account',
                            'role' => 'admin',
                            'cart' => 1]    
                 );
 });
+
+Route::get('/test', [loginController::class, 'index']);
