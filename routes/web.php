@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\loginController;
-
+use App\Http\Controllers\AccountController;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,11 +79,66 @@ Route::get('/transaction', function () {
                 );
 });
 
-Route::get('/viewAcc', function () {
+Route::get('/account', function () {
     return view('viewAcc', ['title' => 'View Account',
                            'role' => 'admin',
-                           'cart' => 1]    
+                           'cart' => 1,
+                           'users' => User::all(),
+                           'message' => '']    
                 );
 });
+
+// Route::post('/accountUpdate/{id}', function ($id) {
+//     return view('updateAcc', ['title' => 'View Account',
+//                            'role' => 'admin',
+//                            'cart' => 1]    
+//                 );
+// });
+// Route::post('/accountDelete/{id}', [function ($id) {
+//     return view('updateAcc', ['title' => 'View Account',
+//                            'role' => 'admin',
+//                            'cart' => 1]    
+//                 );
+// }]);
+
+Route::post('/accountDelete/{id}', [AccountController::class, 'destroyUser']);
+
+Route::get('/accountUpdate/{id}', function ($id){
+    // dd(DB::table('users')->where('id', '=', $id)->get()[0]);
+    return view('updateAcc', ['title' => 'View Account',
+                              'role' => 'admin',
+                              'cart' => 1,
+                              'user' => DB::table('users')->where('id', '=', $id)->get()[0],
+                              'link' => '']);
+});
+
+Route::post('/accountUpdate/{id}', [AccountController::class, 'updateUser']);
+
+// Route::post('/accountDelete/{id}', function($id){
+//     // dd($request);
+//     return view('viewAcc', ['title' => 'View Account',
+//                             'role' => 'admin',
+//                             'cart' => 1,
+//                             // 'users' => User::all(),
+//                             'listing' => User::find($id)
+//     ]);
+//     // (Request $request) {
+//     //     DB::table('users')->delete($request->id);
+//     //     return view('viewAcc', ['title' => 'View Account',
+//     //                 'role' => 'admin',
+//     //                 'cart' => 1,
+//     //                 'users' => User::all(),
+//     //                 'link' => '']    
+//     //             );
+//     // }
+// });
+// Route::post('/accountDelete', [AccountController::class, 'destroyUser']);
+
+// Route::get('/account/update', function () {
+//     return view('updateAcc', ['title' => 'Update Account',
+//                            'role' => 'admin',
+//                            'cart' => 1]
+//                 );
+// });
 
 Route::get('/test', [loginController::class, 'index']);
